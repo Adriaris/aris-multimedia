@@ -242,7 +242,7 @@ function Navbar({
 
 /* ─── Contact Form ───────────────────────────────────────────── */
 
-function ContactForm() {
+function ContactForm({ light = false }: { light?: boolean }) {
   const [form, setForm] = useState({
     nombre: "",
     email: "",
@@ -264,16 +264,17 @@ function ContactForm() {
     setSent(true);
   };
 
-  const inputClass =
-    "w-full bg-[#0d0c09] border border-white/10 rounded-xl px-5 py-4 text-base text-white placeholder-white/28 focus:outline-none focus:border-[#F5A623]/50 transition-colors duration-200";
+  const inputClass = light
+    ? "w-full bg-white border border-black/10 rounded-xl px-5 py-4 text-base text-[#0a0a0a] placeholder-black/28 focus:outline-none focus:border-[#F5A623]/60 transition-colors duration-200"
+    : "w-full bg-[#0a0a0a] border border-white/8 rounded-xl px-5 py-4 text-base text-white placeholder-white/25 focus:outline-none focus:border-[#F5A623]/45 transition-colors duration-200";
 
   if (sent) {
     return (
       <div className="text-center py-10">
         <p className="text-[#F5A623] font-semibold mb-2">Abriendo tu gestor de correo...</p>
-        <p className="text-white/38 text-sm">
+        <p className={`${light ? "text-black/40" : "text-white/38"} text-sm`}>
           Si no se abre, escríbenos a{" "}
-          <a href="mailto:info@arismultimedia.com" className="underline hover:text-white/70 transition-colors cursor-pointer">
+          <a href="mailto:info@arismultimedia.com" className={`underline ${light ? "hover:text-black/70" : "hover:text-white/70"} transition-colors cursor-pointer`}>
             info@arismultimedia.com
           </a>
         </p>
@@ -315,7 +316,9 @@ function ContactForm() {
           onChange={(e) => setForm({ ...form, servicio: e.target.value })}
           className={`${inputClass} appearance-none cursor-pointer`}
           style={{
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff35' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")",
+            backgroundImage: light
+              ? "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300000045' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")"
+              : "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff35' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "right 14px center",
             backgroundSize: "16px",
@@ -348,12 +351,12 @@ function ContactForm() {
           Brief o documento <span className="text-white/22 font-normal">(opcional · PDF, DOC, ZIP…)</span>
         </label>
         <label
-          className="flex items-center gap-3 w-full bg-[#0a0a0a] border border-dashed border-white/10 hover:border-[#F5A623]/35 rounded-xl px-5 py-4 cursor-pointer transition-colors duration-200 group"
+          className={`flex items-center gap-3 w-full border border-dashed rounded-xl px-5 py-4 cursor-pointer transition-colors duration-200 group ${light ? "bg-white border-black/10 hover:border-[#F5A623]/50" : "bg-[#0a0a0a] border-white/10 hover:border-[#F5A623]/35"}`}
         >
-          <span className="text-white/30 group-hover:text-[#F5A623]/60 transition-colors duration-200">
+          <span className={`${light ? "text-black/28 group-hover:text-[#F5A623]/70" : "text-white/30 group-hover:text-[#F5A623]/60"} transition-colors duration-200`}>
             <IconUpload />
           </span>
-          <span className="text-base text-white/28 group-hover:text-white/50 transition-colors duration-200 truncate">
+          <span className={`text-base truncate transition-colors duration-200 ${light ? "text-black/30 group-hover:text-black/55" : "text-white/28 group-hover:text-white/50"}`}>
             {file ? file.name : "Adjuntar archivo"}
           </span>
           <input
@@ -367,7 +370,7 @@ function ContactForm() {
           <button
             type="button"
             onClick={() => setFile(null)}
-            className="mt-1.5 text-xs text-white/25 hover:text-white/50 transition-colors cursor-pointer"
+            className={`mt-1.5 text-xs transition-colors cursor-pointer ${light ? "text-black/28 hover:text-black/55" : "text-white/25 hover:text-white/50"}`}
           >
             Quitar archivo
           </button>
@@ -508,7 +511,7 @@ export default function Home() {
       </section>
 
       {/* ══ SERVICIOS ═════════════════════════════════════════ */}
-      <section id="servicios" className="py-36 px-6 bg-[#0e0e0e]">
+      <section id="servicios" className="py-36 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-20">
             <p className="scroll-animate text-[#F5A623] text-xs font-semibold tracking-[0.18em] uppercase mb-5">
@@ -527,7 +530,7 @@ export default function Home() {
             {services.map((s, i) => (
               <article
                 key={s.title}
-                className={`scroll-animate delay-${i + 1} group relative bg-[#1a1a1a] border border-white/8 rounded-2xl p-8 hover:border-[#F5A623]/25 transition-all duration-500 overflow-hidden`}
+                className={`scroll-animate delay-${i + 1} group relative bg-[#0d0d0d] border border-white/5 rounded-2xl p-8 hover:border-[#F5A623]/20 transition-all duration-500 overflow-hidden`}
               >
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
@@ -545,13 +548,8 @@ export default function Home() {
       </section>
 
       {/* ══ POR QUÉ ARIS MULTIMEDIA ═══════════════════════════ */}
-      <section id="sobre" className="py-24 px-6 bg-[#0d0c09] relative overflow-hidden">
-        {/* Warm ambient glow */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 90% 70% at 15% 50%, rgba(245,166,35,0.055) 0%, transparent 65%)" }}
-        />
-        <div className="relative z-10 max-w-5xl mx-auto">
+      <section id="sobre" className="py-24 px-6 bg-[#f8f7f4]">
+        <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-[2fr_3fr] gap-12 lg:gap-20 items-start">
 
             {/* Headline col */}
@@ -559,12 +557,12 @@ export default function Home() {
               <p className="text-[#F5A623] text-xs font-semibold tracking-[0.18em] uppercase mb-5">
                 Por qué Aris Multimedia
               </p>
-              <h2 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.08]">
+              <h2 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.08] text-[#0a0a0a]">
                 Pequeño<br />por elección.{" "}
-                <span className="text-white/25">Preciso por convicción.</span>
+                <span className="text-black/28">Preciso por convicción.</span>
               </h2>
               <div className="mt-8">
-                <ArisOrb />
+                <ArisOrb light />
               </div>
             </div>
 
@@ -572,7 +570,7 @@ export default function Home() {
             <div className="flex flex-col gap-10">
 
               <div className="scroll-animate delay-1">
-                <p className="text-white/50 text-[1.05rem] leading-relaxed">
+                <p className="text-black/55 text-[1.05rem] leading-relaxed">
                   Trabajo directamente contigo, sin intermediarios. Eso hace que
                   las cosas avancen rápido, que no haya malentendidos y que yo
                   tenga el contexto completo de lo que necesitas.
@@ -594,15 +592,15 @@ export default function Home() {
                     desc: "Lo que ves en el presupuesto es lo que pagas. Si algo cambia a mitad de camino, hablamos antes de seguir.",
                   },
                 ].map((p) => (
-                  <div key={p.title} className="group flex gap-5 py-6 border-t border-white/[0.06]">
-                    <div className="w-0.5 shrink-0 rounded-full bg-[#F5A623]/30 group-hover:bg-[#F5A623]/70 transition-colors duration-300 mt-1 self-stretch" />
+                  <div key={p.title} className="group flex gap-5 py-6 border-t border-black/8">
+                    <div className="w-0.5 shrink-0 rounded-full bg-[#F5A623]/40 group-hover:bg-[#F5A623] transition-colors duration-300 mt-1 self-stretch" />
                     <div>
-                      <h4 className="text-white font-semibold text-sm mb-1.5">{p.title}</h4>
-                      <p className="text-white/40 text-sm leading-relaxed">{p.desc}</p>
+                      <h4 className="text-[#0a0a0a] font-semibold text-sm mb-1.5">{p.title}</h4>
+                      <p className="text-black/45 text-sm leading-relaxed">{p.desc}</p>
                     </div>
                   </div>
                 ))}
-                <div className="border-t border-white/[0.06]" />
+                <div className="border-t border-black/8" />
               </div>
 
               <div className="scroll-animate delay-3">
@@ -647,36 +645,19 @@ export default function Home() {
                 type="video/mp4"
               />
             </video>
-            {/* Fade bottom → page background */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(to bottom, #080808 0%, transparent 18%, transparent 60%, #080808 100%)",
-              }}
-            />
-            {/* Fade lateral edges */}
-            <div
-              className="absolute inset-y-0 left-0 w-20 pointer-events-none"
-              style={{ background: "linear-gradient(to right, #080808, transparent)" }}
-            />
-            <div
-              className="absolute inset-y-0 right-0 w-20 pointer-events-none"
-              style={{ background: "linear-gradient(to left, #080808, transparent)" }}
-            />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, #080808 0%, transparent 18%, transparent 58%, #080808 100%)" }} />
+            <div className="absolute inset-y-0 left-0 w-20 pointer-events-none" style={{ background: "linear-gradient(to right, #080808, transparent)" }} />
+            <div className="absolute inset-y-0 right-0 w-20 pointer-events-none" style={{ background: "linear-gradient(to left, #080808, transparent)" }} />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
+          <div className="grid md:grid-cols-3 gap-12 md:gap-10">
             {steps.map((step, i) => (
-              <div
-                key={step.num}
-                className={`scroll-animate delay-${i + 1} bg-[#111] p-8 md:p-10`}
-              >
-                <span className="block text-[#F5A623]/40 font-black text-6xl leading-none mb-6 font-mono">
+              <div key={step.num} className={`scroll-animate delay-${i + 1}`}>
+                <span className="block text-[#F5A623]/35 font-black text-6xl leading-none mb-6 font-mono">
                   {step.num}
                 </span>
                 <h3 className="text-xl font-bold mb-4">{step.title}</h3>
-                <p className="text-white/45 leading-relaxed text-sm">{step.desc}</p>
+                <p className="text-white/42 leading-relaxed text-sm">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -684,10 +665,10 @@ export default function Home() {
       </section>
 
       {/* ══ CONTACTO ══════════════════════════════════════════ */}
-      <section id="contacto" className="py-36 px-6 bg-[#0c0b08] relative overflow-hidden">
+      <section id="contacto" className="py-36 px-6 bg-white relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(245,166,35,0.065), transparent)" }}
+          style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(245,166,35,0.06), transparent)" }}
         />
 
         <div className="relative z-10 max-w-3xl mx-auto">
@@ -695,27 +676,27 @@ export default function Home() {
             <p className="scroll-animate text-[#F5A623] text-xs font-semibold tracking-[0.18em] uppercase mb-6">
               Contacto
             </p>
-            <h2 className="scroll-animate delay-1 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] mb-5">
+            <h2 className="scroll-animate delay-1 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] mb-5 text-[#0a0a0a]">
               ¿Tienes un proyecto
               <br />
-              <span className="text-white/28">en mente?</span>
+              <span className="text-black/28">en mente?</span>
             </h2>
-            <p className="scroll-animate delay-2 text-white/42 text-lg leading-relaxed max-w-md mx-auto">
+            <p className="scroll-animate delay-2 text-black/50 text-lg leading-relaxed max-w-md mx-auto">
               Cuéntame en qué estás pensando. No hace falta tener el proyecto
               definido — muchas veces eso también forma parte del trabajo.
             </p>
           </div>
 
-          <div className="scroll-animate delay-3 bg-[#151412] border border-white/8 rounded-2xl p-8 sm:p-10 mb-5">
-            <ContactForm />
+          <div className="scroll-animate delay-3 bg-[#f8f7f4] border border-black/8 rounded-2xl p-8 sm:p-10 mb-5">
+            <ContactForm light />
           </div>
 
           <div className="scroll-animate delay-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 px-2">
             <div>
-              <p className="text-white/22 text-xs mb-1">O escríbeme directamente</p>
+              <p className="text-black/30 text-xs mb-1">O escríbeme directamente</p>
               <a
                 href="mailto:info@arismultimedia.com"
-                className="text-base font-bold text-white/70 hover:text-[#F5A623] transition-colors duration-200 cursor-pointer"
+                className="text-base font-bold text-black/60 hover:text-[#F5A623] transition-colors duration-200 cursor-pointer"
               >
                 info@arismultimedia.com
               </a>
@@ -727,8 +708,8 @@ export default function Home() {
                 { l: "Presupuesto", v: "Siempre claro" },
               ].map((item) => (
                 <div key={item.l}>
-                  <p className="text-white/22 mb-0.5">{item.l}</p>
-                  <p className="text-white/55 font-medium">{item.v}</p>
+                  <p className="text-black/30 mb-0.5">{item.l}</p>
+                  <p className="text-black/60 font-medium">{item.v}</p>
                 </div>
               ))}
             </div>
