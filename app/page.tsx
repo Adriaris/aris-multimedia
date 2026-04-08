@@ -2,51 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import Image from "next/image";
-
-/* ─── Icons ──────────────────────────────────────────────────── */
-
-function IconAccessibility() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
-      <circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 9h14" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v4" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8.5 21l3.5-8 3.5 8" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M7 13.5a6.5 6.5 0 1010 0" />
-    </svg>
-  );
-}
-
-function IconWordPress() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
-      <rect x="3" y="3" width="8" height="8" rx="1.5" />
-      <rect x="13" y="3" width="8" height="5" rx="1.5" />
-      <rect x="13" y="10" width="8" height="11" rx="1.5" />
-      <rect x="3" y="13" width="8" height="8" rx="1.5" />
-    </svg>
-  );
-}
-
-function IconCode() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M7 8L3 12l4 4" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4-4 4" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M14 4l-4 16" />
-    </svg>
-  );
-}
-
-function IconPWA() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
-      <rect x="7" y="2" width="10" height="20" rx="2.5" />
-      <path strokeLinecap="round" d="M10 18.5h4" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5m0 0l-2-2m2 2l2-2" />
-    </svg>
-  );
-}
+import { Accessibility, Globe, Code2, MonitorSmartphone } from "lucide-react";
 
 function IconArrow() {
   return (
@@ -69,22 +25,22 @@ function IconUpload() {
 
 const services = [
   {
-    icon: <IconAccessibility />,
+    icon: <Accessibility size={22} strokeWidth={1.5} />,
     title: "Accesibilidad WCAG 2.2 AA",
     desc: "La normativa europea (WCAG 2.2 AA) ya obliga a muchas webs a ser accesibles. Adapto la tuya para cumplirla bien, no solo en papel.",
   },
   {
-    icon: <IconWordPress />,
+    icon: <Globe size={22} strokeWidth={1.5} />,
     title: "WordPress",
     desc: "Webs en WordPress pensadas para que puedas gestionarlas tú sin depender de mí para cada cambio.",
   },
   {
-    icon: <IconCode />,
+    icon: <Code2 size={22} strokeWidth={1.5} />,
     title: "Desarrollo personalizado",
     desc: "Cuando una plantilla no es suficiente. Código pensado exactamente para lo que necesitas, sin más ni menos.",
   },
   {
-    icon: <IconPWA />,
+    icon: <MonitorSmartphone size={22} strokeWidth={1.5} />,
     title: "Progressive Web Apps",
     desc: "Webs que se instalan como apps y funcionan sin conexión. Sin App Store ni Play Store.",
   },
@@ -219,11 +175,12 @@ function Navbar({
       <a
         href="#"
         aria-label="Aris Multimedia"
-        className="absolute top-[58%] -translate-y-1/2 cursor-pointer"
+        className="absolute cursor-pointer"
         style={{
+          top: "20px",
           left: "20px",
           opacity: menuOpen ? 0 : showLogo ? 1 : 0,
-          transform: `translateY(-50%) translateX(${showLogo && !menuOpen ? 0 : -8}px)`,
+          transform: `translateX(${showLogo && !menuOpen ? 0 : -8}px)`,
           pointerEvents: menuOpen || !showLogo ? "none" : "auto",
           transition: "opacity 0.4s ease, transform 0.4s ease",
         }}
@@ -242,8 +199,9 @@ function Navbar({
       <button
         onClick={onMenuToggle}
         aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-        className="absolute top-[58%] -translate-y-1/2 flex items-center justify-center cursor-pointer"
+        className="absolute flex items-center justify-center cursor-pointer"
         style={{
+          top: "20px",
           right: "20px",
           pointerEvents: "auto",
           width: "46px",
@@ -599,11 +557,11 @@ export default function Home() {
               </h2>
               <div className="mt-8 rounded-2xl overflow-hidden">
                 <Image
-                  src="/img-about-detail.jpg"
+                  src="/img-abstract-about-v2.jpg"
                   alt=""
                   width={600}
                   height={400}
-                  className="w-full h-52 object-cover opacity-75"
+                  className="w-full h-52 object-cover opacity-80"
                 />
               </div>
             </div>
@@ -676,16 +634,15 @@ export default function Home() {
 
           <div className="scroll-animate relative mb-16 rounded-2xl overflow-hidden">
             <Image
-              src="/img-laptop.jpg"
+              src="/img-abstract-process-v2.jpg"
               alt=""
-              width={1200}
+              width={1600}
               height={500}
-              className="w-full h-56 sm:h-72 object-cover"
-              style={{ opacity: 0.65 }}
+              className="w-full h-64 sm:h-80 object-cover object-center"
             />
             <div
               className="absolute inset-0"
-              style={{ background: "linear-gradient(to bottom, transparent 40%, #080808)" }}
+              style={{ background: "linear-gradient(to bottom, transparent 50%, #080808)" }}
             />
           </div>
 
