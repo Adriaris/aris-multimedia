@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Accessibility, Globe, Code2, MonitorSmartphone } from "lucide-react";
+
+const ArisOrb = dynamic(() => import("../components/ArisOrb"), { ssr: false });
 
 function IconArrow() {
   return (
@@ -555,14 +558,8 @@ export default function Home() {
                 Pequeño<br />por elección.{" "}
                 <span className="text-white/25">Preciso por convicción.</span>
               </h2>
-              <div className="mt-8 rounded-2xl overflow-hidden">
-                <Image
-                  src="/img-abstract-about-v2.jpg"
-                  alt=""
-                  width={600}
-                  height={400}
-                  className="w-full h-52 object-cover opacity-80"
-                />
+              <div className="mt-8">
+                <ArisOrb />
               </div>
             </div>
 
@@ -633,16 +630,34 @@ export default function Home() {
           </div>
 
           <div className="scroll-animate relative mb-16 rounded-2xl overflow-hidden">
-            <Image
-              src="/img-abstract-process-v2.jpg"
-              alt=""
-              width={1600}
-              height={500}
-              className="w-full h-64 sm:h-80 object-cover object-center"
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-64 sm:h-80 object-cover object-center opacity-70"
+            >
+              <source
+                src="/motion-abstract-orange-digital-waves-and-particles-2026-01-28-02-42-31-utc.mp4"
+                type="video/mp4"
+              />
+            </video>
+            {/* Fade bottom → page background */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(to bottom, #080808 0%, transparent 18%, transparent 60%, #080808 100%)",
+              }}
+            />
+            {/* Fade lateral edges */}
+            <div
+              className="absolute inset-y-0 left-0 w-20 pointer-events-none"
+              style={{ background: "linear-gradient(to right, #080808, transparent)" }}
             />
             <div
-              className="absolute inset-0"
-              style={{ background: "linear-gradient(to bottom, transparent 50%, #080808)" }}
+              className="absolute inset-y-0 right-0 w-20 pointer-events-none"
+              style={{ background: "linear-gradient(to left, #080808, transparent)" }}
             />
           </div>
 
