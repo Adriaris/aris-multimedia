@@ -30,12 +30,12 @@ const services = [
   {
     icon: <Accessibility size={22} strokeWidth={1.5} />,
     title: "Accesibilidad WCAG 2.2 AA",
-    desc: "La normativa europea (WCAG 2.2 AA) ya obliga a muchas webs a ser accesibles. Adapto la tuya para cumplirla bien, no solo en papel.",
+    desc: "La normativa europea (WCAG 2.2 AA) ya obliga a muchas webs a ser accesibles. Adaptamos la tuya para cumplirla bien, no solo en papel.",
   },
   {
     icon: <Globe size={22} strokeWidth={1.5} />,
     title: "WordPress",
-    desc: "Webs en WordPress pensadas para que puedas gestionarlas tú sin depender de mí para cada cambio.",
+    desc: "Webs en WordPress pensadas para que el cliente pueda gestionarlas sin depender de nosotros para cada cambio.",
   },
   {
     icon: <Code2 size={22} strokeWidth={1.5} />,
@@ -53,17 +53,17 @@ const steps = [
   {
     num: "01",
     title: "Escucha",
-    desc: "Lo primero es entender qué necesitas y por qué. Me interesa el proyecto de verdad, no solo el encargo. Prefiero hacer preguntas incómodas ahora que entregar algo que no encaja más adelante.",
+    desc: "Lo primero es entender qué necesitas y por qué. Nos interesa el proyecto de verdad, no solo el encargo. Preferimos hacer preguntas incómodas ahora que entregar algo que no encaja más adelante.",
   },
   {
     num: "02",
     title: "Propuesta",
-    desc: "Te explico cómo lo haría, qué implica técnicamente y cuánto cuesta. Todo por escrito. Si algo cambia a mitad de camino, te aviso antes de seguir.",
+    desc: "Explicamos cómo lo haríamos, qué implica técnicamente y cuánto cuesta. Todo por escrito. Si algo cambia a mitad de camino, avisamos antes de seguir.",
   },
   {
     num: "03",
     title: "Entrega",
-    desc: "Trabajo con detalle y te voy contando cómo avanza. Si algo no cuadra, lo digo antes de que sea un problema. Lo que entrego tiene que funcionarte de verdad.",
+    desc: "Trabajamos con detalle y mantenemos al cliente informado en cada fase. Si algo no cuadra, lo decimos antes de que sea un problema.",
   },
 ];
 
@@ -309,7 +309,7 @@ function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm text-white/45 mb-2 font-medium">¿En qué puedo ayudarte?</label>
+        <label className="block text-sm text-white/45 mb-2 font-medium">¿En qué podemos ayudarte?</label>
         <select
           value={form.servicio}
           onChange={(e) => setForm({ ...form, servicio: e.target.value })}
@@ -331,7 +331,7 @@ function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm text-white/45 mb-2 font-medium">Cuéntame un poco</label>
+        <label className="block text-sm text-white/45 mb-2 font-medium">Cuéntanos un poco</label>
         <textarea
           rows={4}
           required
@@ -432,26 +432,26 @@ export default function Home() {
 
       {/* ══ HERO ══════════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Ken Burns background */}
+        {/* Cosmic video background */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="hero-ken-burns absolute inset-0">
-            <Image
-              src="/hero-background.jpg"
-              alt=""
-              fill
-              priority
-              className="object-cover opacity-22"
-              sizes="100vw"
-            />
-          </div>
-          <div className="absolute inset-0 bg-linear-to-b from-[#080808]/55 via-[#080808]/5 to-[#080808]" />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ opacity: 0.62 }}
+          >
+            <source src="/cosmic-drift-dark-nebula-asteroid-loop-4k-2026-02-08-07-39-28-utc.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-linear-to-b from-[#080808]/30 via-transparent to-[#080808]" />
         </div>
 
-        {/* Ambient glow */}
+        {/* Ambient glow — pink */}
         <div
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 rounded-full pointer-events-none"
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 rounded-full pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(245,166,35,0.06) 0%, transparent 65%)",
+            background: "radial-gradient(circle, rgba(255,20,100,0.18) 0%, rgba(255,20,100,0.04) 45%, transparent 70%)",
             animation: "float 14s ease-in-out infinite",
           }}
         />
@@ -470,10 +470,10 @@ export default function Home() {
           </h1>
 
           <p
-            className="text-lg sm:text-xl text-white/50 max-w-xl mx-auto mb-12 leading-relaxed"
+            className="text-lg sm:text-xl text-white/68 max-w-xl mx-auto mb-12 leading-relaxed"
             style={{ animation: "fadeInUp 0.8s ease-out 0.65s both" }}
           >
-            Accesibilidad, WordPress o desarrollo a medida. Lo que tu proyecto
+            Accesibilidad, WordPress o desarrollo a medida. Lo que el proyecto
             necesita, construido con cuidado y sin intermediarios.
           </p>
 
@@ -492,7 +492,7 @@ export default function Home() {
             </a>
             <a
               href="#servicios"
-              className="text-white/38 hover:text-white/65 transition-colors duration-200 text-sm cursor-pointer"
+              className="flex items-center gap-2 border border-white/20 text-white/75 hover:border-white/40 hover:text-white transition-colors duration-200 text-base font-medium px-8 py-4 rounded-full cursor-pointer"
             >
               Ver servicios
             </a>
@@ -518,7 +518,7 @@ export default function Home() {
               ¿Qué puedo hacer
               <span className="text-white/30"> por ti?</span>
             </h2>
-            <p className="scroll-animate delay-2 mt-5 text-white/40 text-lg max-w-lg leading-relaxed">
+            <p className="scroll-animate delay-2 mt-5 text-white/65 text-lg max-w-lg leading-relaxed">
               Cada proyecto es distinto. Trabajo en estas cuatro áreas.
             </p>
           </div>
@@ -537,7 +537,7 @@ export default function Home() {
                   {s.icon}
                 </div>
                 <h3 className="relative z-10 font-bold text-[17px] mb-3 leading-snug">{s.title}</h3>
-                <p className="relative z-10 text-white/40 text-sm leading-relaxed">{s.desc}</p>
+                <p className="relative z-10 text-white/62 text-base leading-relaxed">{s.desc}</p>
               </article>
             ))}
           </div>
@@ -545,70 +545,70 @@ export default function Home() {
       </section>
 
       {/* ══ POR QUÉ ARIS MULTIMEDIA ═══════════════════════════ */}
-      <section id="sobre" className="py-24 px-6 bg-[#060606]">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-[2fr_3fr] gap-12 lg:gap-20 items-start">
+      <section id="sobre" className="py-20 px-6 bg-[#060606] overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-center">
 
-            {/* Headline col */}
-            <div className="scroll-animate lg:sticky lg:top-32">
+            {/* Left: header + features + CTA */}
+            <div className="scroll-animate flex flex-col">
               <p className="text-[#F5A623] text-xs font-semibold tracking-[0.18em] uppercase mb-5">
                 Por qué Aris Multimedia
               </p>
-              <h2 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.08]">
-                Pequeño<br />por elección.{" "}
+              <h2 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.08] mb-5">
+                Pequeño por elección.{" "}
                 <span className="text-white/25">Preciso por convicción.</span>
               </h2>
-              <div className="mt-8">
-                <ArisOrb />
-              </div>
-            </div>
+              <p className="text-white/68 text-base leading-relaxed mb-10 max-w-md">
+                Trato directo, sin intermediarios. El contexto completo del proyecto
+                siempre está en el mismo sitio.
+              </p>
 
-            {/* Content col */}
-            <div className="flex flex-col gap-10">
-
-              <div className="scroll-animate delay-1">
-                <p className="text-white/50 text-[1.05rem] leading-relaxed">
-                  Trabajo directamente contigo, sin intermediarios. Eso hace que
-                  las cosas avancen rápido, que no haya malentendidos y que yo
-                  tenga el contexto completo de lo que necesitas.
-                </p>
-              </div>
-
-              <div className="scroll-animate delay-2 flex flex-col">
+              {/* Feature cards */}
+              <div className="flex flex-col gap-3 mb-10">
                 {[
                   {
                     title: "Trato directo",
-                    desc: "Hablas conmigo directamente. No hay nadie en el medio que interprete lo que has dicho.",
+                    desc: "El cliente habla con quien hace el trabajo. Sin mensajes interpretados ni capas de por medio.",
                   },
                   {
                     title: "Alta calidad",
-                    desc: "Me importa hacer las cosas bien. No el 'bien suficiente', bien de verdad. En diseño, en código y en lo que experimenta el usuario.",
+                    desc: "Nos importa hacer las cosas bien. No el 'bien suficiente', bien de verdad: en diseño, en código y en experiencia.",
                   },
                   {
                     title: "Precio honesto",
-                    desc: "Lo que ves en el presupuesto es lo que pagas. Si algo cambia a mitad de camino, hablamos antes de seguir.",
+                    desc: "El presupuesto refleja el trabajo real. Si algo cambia a mitad de camino, se comunica antes de seguir.",
                   },
                 ].map((p) => (
-                  <div key={p.title} className="group flex gap-5 py-6 border-t border-white/[0.06]">
-                    <div className="w-0.5 shrink-0 rounded-full bg-[#F5A623]/30 group-hover:bg-[#F5A623]/70 transition-colors duration-300 mt-1 self-stretch" />
-                    <div>
-                      <h4 className="text-white font-semibold text-sm mb-1.5">{p.title}</h4>
-                      <p className="text-white/40 text-sm leading-relaxed">{p.desc}</p>
-                    </div>
+                  <div
+                    key={p.title}
+                    className="bg-[#0d0d0d] border border-white/[0.07] rounded-2xl px-6 py-5"
+                  >
+                    <h4 className="text-white font-semibold text-base mb-1.5">{p.title}</h4>
+                    <p className="text-white/62 text-base leading-relaxed">{p.desc}</p>
                   </div>
                 ))}
-                <div className="border-t border-white/[0.06]" />
               </div>
 
-              <div className="scroll-animate delay-3">
-                <a
-                  href="#contacto"
-                  className="group inline-flex items-center gap-2 text-[#F5A623] font-semibold text-sm hover:gap-3 transition-all duration-200 cursor-pointer"
-                >
-                  Cuéntame tu proyecto <IconArrow />
-                </a>
-              </div>
+              <a
+                href="#contacto"
+                className="group inline-flex items-center gap-2 text-[#F5A623] font-semibold text-base hover:gap-3 transition-all duration-200 cursor-pointer"
+              >
+                Cuéntanos tu proyecto <IconArrow />
+              </a>
             </div>
+
+            {/* Right: image */}
+            <div className="scroll-animate delay-1 rounded-3xl overflow-hidden">
+              <Image
+                src="/workplace-of-designer-with-computers-on-table-2026-01-08-07-41-11-utc.jpg"
+                alt=""
+                width={1200}
+                height={800}
+                className="w-full object-cover"
+                style={{ height: "clamp(420px, 55vh, 640px)", opacity: 0.88 }}
+              />
+            </div>
+
           </div>
         </div>
       </section>
@@ -664,11 +664,11 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-12 md:gap-10">
             {steps.map((step, i) => (
               <div key={step.num} className={`scroll-animate delay-${i + 1}`}>
-                <span className="block text-[#F5A623]/35 font-black text-6xl leading-none mb-6 font-mono">
+                <span className="block text-[#F5A623] font-black text-6xl leading-none mb-6 font-mono">
                   {step.num}
                 </span>
                 <h3 className="text-xl font-bold mb-4">{step.title}</h3>
-                <p className="text-white/42 leading-relaxed text-sm">{step.desc}</p>
+                <p className="text-white/65 leading-relaxed text-base">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -681,6 +681,19 @@ export default function Home() {
           className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(245,166,35,0.035), transparent)" }}
         />
+        {/* ArisOrb — anclado sobre el formulario */}
+        <div
+          className="absolute left-1/2 pointer-events-none"
+          style={{
+            transform: "translateX(-50%)",
+            bottom: "-15%",
+            width: "min(2200px, 260vw)",
+            height: "min(2200px, 260vw)",
+            opacity: 0.13,
+          }}
+        >
+          <ArisOrb />
+        </div>
 
         <div className="relative z-10 max-w-3xl mx-auto">
           <div className="text-center mb-14">
@@ -692,9 +705,9 @@ export default function Home() {
               <br />
               <span className="text-white/28">en mente?</span>
             </h2>
-            <p className="scroll-animate delay-2 text-white/42 text-lg leading-relaxed max-w-md mx-auto">
-              Cuéntame en qué estás pensando. No hace falta tener el proyecto
-              definido — muchas veces eso también forma parte del trabajo.
+            <p className="scroll-animate delay-2 text-white/65 text-lg leading-relaxed max-w-md mx-auto">
+              Cuéntanos en qué estás pensando. No hace falta tener el proyecto
+              definido; muchas veces eso también forma parte del trabajo.
             </p>
           </div>
 
@@ -704,7 +717,7 @@ export default function Home() {
 
           <div className="scroll-animate delay-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 px-2">
             <div>
-              <p className="text-white/22 text-xs mb-1">O escríbeme directamente</p>
+              <p className="text-white/50 text-xs mb-1">O escríbenos directamente</p>
               <a
                 href="mailto:info@arismultimedia.com"
                 className="text-base font-bold text-white/70 hover:text-[#F5A623] transition-colors duration-200 cursor-pointer"
@@ -719,8 +732,8 @@ export default function Home() {
                 { l: "Presupuesto", v: "Siempre claro" },
               ].map((item) => (
                 <div key={item.l}>
-                  <p className="text-white/22 mb-0.5">{item.l}</p>
-                  <p className="text-white/55 font-medium">{item.v}</p>
+                  <p className="text-white/50 mb-0.5">{item.l}</p>
+                  <p className="text-white/80 font-medium">{item.v}</p>
                 </div>
               ))}
             </div>
@@ -748,7 +761,7 @@ export default function Home() {
                 className="h-12 w-12 object-contain mb-4 opacity-80"
               />
               <p className="text-white/55 text-sm leading-relaxed max-w-xs">
-                Desarrollo web hecho con cuidado, directamente por quien lo firma.
+                Desarrollo web hecho con cuidado y atención al detalle.
               </p>
             </div>
             <a
