@@ -265,7 +265,7 @@ function ContactForm() {
   };
 
   const inputClass =
-    "w-full bg-[#0a0a0a] border border-white/8 rounded-xl px-5 py-4 text-base text-white placeholder-white/25 focus:outline-none focus:border-[#F5A623]/45 transition-colors duration-200";
+    "w-full bg-[#0d0c09] border border-white/10 rounded-xl px-5 py-4 text-base text-white placeholder-white/28 focus:outline-none focus:border-[#F5A623]/50 transition-colors duration-200";
 
   if (sent) {
     return (
@@ -508,7 +508,7 @@ export default function Home() {
       </section>
 
       {/* ══ SERVICIOS ═════════════════════════════════════════ */}
-      <section id="servicios" className="py-36 px-6">
+      <section id="servicios" className="py-36 px-6 bg-[#0e0e0e]">
         <div className="max-w-6xl mx-auto">
           <div className="mb-20">
             <p className="scroll-animate text-[#F5A623] text-xs font-semibold tracking-[0.18em] uppercase mb-5">
@@ -527,7 +527,7 @@ export default function Home() {
             {services.map((s, i) => (
               <article
                 key={s.title}
-                className={`scroll-animate delay-${i + 1} group relative bg-[#0d0d0d] border border-white/5 rounded-2xl p-8 hover:border-[#F5A623]/20 transition-all duration-500 overflow-hidden`}
+                className={`scroll-animate delay-${i + 1} group relative bg-[#1a1a1a] border border-white/8 rounded-2xl p-8 hover:border-[#F5A623]/25 transition-all duration-500 overflow-hidden`}
               >
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
@@ -545,8 +545,13 @@ export default function Home() {
       </section>
 
       {/* ══ POR QUÉ ARIS MULTIMEDIA ═══════════════════════════ */}
-      <section id="sobre" className="py-24 px-6 bg-[#060606]">
-        <div className="max-w-5xl mx-auto">
+      <section id="sobre" className="py-24 px-6 bg-[#0d0c09] relative overflow-hidden">
+        {/* Warm ambient glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse 90% 70% at 15% 50%, rgba(245,166,35,0.055) 0%, transparent 65%)" }}
+        />
+        <div className="relative z-10 max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-[2fr_3fr] gap-12 lg:gap-20 items-start">
 
             {/* Headline col */}
@@ -661,14 +666,17 @@ export default function Home() {
             />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-12 md:gap-10">
+          <div className="grid md:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
             {steps.map((step, i) => (
-              <div key={step.num} className={`scroll-animate delay-${i + 1}`}>
-                <span className="block text-[#F5A623]/35 font-black text-6xl leading-none mb-6 font-mono">
+              <div
+                key={step.num}
+                className={`scroll-animate delay-${i + 1} bg-[#111] p-8 md:p-10`}
+              >
+                <span className="block text-[#F5A623]/40 font-black text-6xl leading-none mb-6 font-mono">
                   {step.num}
                 </span>
                 <h3 className="text-xl font-bold mb-4">{step.title}</h3>
-                <p className="text-white/42 leading-relaxed text-sm">{step.desc}</p>
+                <p className="text-white/45 leading-relaxed text-sm">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -676,10 +684,10 @@ export default function Home() {
       </section>
 
       {/* ══ CONTACTO ══════════════════════════════════════════ */}
-      <section id="contacto" className="py-36 px-6 bg-[#060606] relative overflow-hidden">
+      <section id="contacto" className="py-36 px-6 bg-[#0c0b08] relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(245,166,35,0.035), transparent)" }}
+          style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(245,166,35,0.065), transparent)" }}
         />
 
         <div className="relative z-10 max-w-3xl mx-auto">
@@ -698,7 +706,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="scroll-animate delay-3 bg-[#0d0d0d] border border-white/6 rounded-2xl p-8 sm:p-10 mb-5">
+          <div className="scroll-animate delay-3 bg-[#151412] border border-white/8 rounded-2xl p-8 sm:p-10 mb-5">
             <ContactForm />
           </div>
 
