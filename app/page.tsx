@@ -389,6 +389,23 @@ function ContactForm() {
   );
 }
 
+function AboutSlider() {
+  return (
+    <div className="scroll-animate delay-1 relative overflow-hidden" style={{ height: "clamp(420px, 55vh, 640px)" }}>
+      <Image
+        src="/about-iridescent.png"
+        alt=""
+        fill
+        className="object-cover object-center"
+        style={{ opacity: 0.95 }}
+        sizes="(max-width: 1024px) 100vw, 55vw"
+      />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, #060606 0%, transparent 18%, transparent 82%, #060606 100%)" }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, #060606 0%, transparent 18%, transparent 82%, #060606 100%)" }} />
+    </div>
+  );
+}
+
 /* ─── Page ───────────────────────────────────────────────────── */
 
 export default function Home() {
@@ -623,17 +640,8 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Right: image */}
-            <div className="scroll-animate delay-1 rounded-3xl overflow-hidden">
-              <Image
-                src="/workplace-of-designer-with-computers-on-table-2026-01-08-07-41-11-utc.jpg"
-                alt=""
-                width={1200}
-                height={800}
-                className="w-full object-cover"
-                style={{ height: "clamp(420px, 55vh, 640px)", opacity: 0.88 }}
-              />
-            </div>
+            {/* Right: image slider */}
+            <AboutSlider />
 
           </div>
         </div>
