@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { Accessibility, Globe, Code2, MonitorSmartphone } from "lucide-react";
+import { Accessibility, Globe, Code2, Sparkles } from "lucide-react";
 
 const ArisOrb = dynamic(() => import("../components/ArisOrb"), { ssr: false });
 
@@ -31,21 +31,25 @@ const services = [
     icon: <Accessibility size={22} strokeWidth={1.5} />,
     title: "Accesibilidad WCAG 2.2 AA",
     desc: "La normativa europea (WCAG 2.2 AA) ya obliga a muchas webs a ser accesibles. Adaptamos la tuya para cumplirla bien, no solo en papel.",
+    badge: null,
   },
   {
     icon: <Globe size={22} strokeWidth={1.5} />,
     title: "WordPress",
     desc: "Webs en WordPress pensadas para que el cliente pueda gestionarlas sin depender de nosotros para cada cambio.",
+    badge: null,
   },
   {
     icon: <Code2 size={22} strokeWidth={1.5} />,
-    title: "Desarrollo personalizado",
-    desc: "Cuando una plantilla no es suficiente. Código pensado exactamente para lo que necesitas, sin más ni menos.",
+    title: "Desarrollo a medida y PWA",
+    desc: "Cuando una plantilla no es suficiente. Código pensado para lo que necesitas, incluyendo Progressive Web Apps: instalables como una app nativa, sin tienda de aplicaciones.",
+    badge: null,
   },
   {
-    icon: <MonitorSmartphone size={22} strokeWidth={1.5} />,
-    title: "Progressive Web Apps",
-    desc: "Webs que se instalan como apps y funcionan sin conexión. Sin App Store ni Play Store.",
+    icon: <Sparkles size={22} strokeWidth={1.5} />,
+    title: "Soluciones con IA",
+    desc: "Integramos inteligencia artificial donde tiene sentido: automatización, generación de contenido, asistentes o herramientas a medida para tu negocio.",
+    badge: "Nuevo",
   },
 ];
 
@@ -326,6 +330,7 @@ function ContactForm() {
           <option value="WordPress">WordPress</option>
           <option value="Desarrollo personalizado">Desarrollo personalizado</option>
           <option value="Progressive Web App">Progressive Web App</option>
+          <option value="Soluciones con IA">Soluciones con IA</option>
           <option value="Otro">Otro / Todavía no lo sé</option>
         </select>
       </div>
@@ -473,8 +478,8 @@ export default function Home() {
             className="text-lg sm:text-xl text-white/68 max-w-xl mx-auto mb-12 leading-relaxed"
             style={{ animation: "fadeInUp 0.8s ease-out 0.65s both" }}
           >
-            Accesibilidad, WordPress o desarrollo a medida. Lo que el proyecto
-            necesita, construido con cuidado y sin intermediarios.
+            Accesibilidad, WordPress, desarrollo a medida o soluciones con IA.
+            Lo que el proyecto necesita, construido con cuidado y sin intermediarios.
           </p>
 
           <div
@@ -527,12 +532,33 @@ export default function Home() {
             {services.map((s, i) => (
               <article
                 key={s.title}
-                className={`scroll-animate delay-${i + 1} group relative bg-[#0d0d0d] border border-white/5 rounded-2xl p-8 hover:border-[#F5A623]/20 transition-all duration-500 overflow-hidden`}
+                className={`scroll-animate delay-${i + 1} group relative bg-[#0d0d0d] border rounded-2xl p-8 transition-all duration-500 overflow-hidden ${
+                  s.badge
+                    ? "border-[#F5A623]/12 hover:border-[#F5A623]/30"
+                    : "border-white/5 hover:border-[#F5A623]/20"
+                }`}
               >
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
                   style={{ background: "radial-gradient(500px at 0% 0%, rgba(245,166,35,0.05), transparent)" }}
                 />
+                {s.badge && (
+                  <span
+                    className="absolute top-5 right-5 text-[10px] font-bold tracking-[0.14em] uppercase px-2.5 py-1 rounded-full"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(245,166,35,0.18), rgba(255,229,128,0.1))",
+                      border: "1px solid rgba(245,166,35,0.35)",
+                      backgroundClip: "unset",
+                      color: "transparent",
+                      backgroundImage: "linear-gradient(90deg, #F5A623 0%, #FFE580 55%, #F5A623 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      filter: "drop-shadow(0 0 8px rgba(245,166,35,0.55))",
+                    }}
+                  >
+                    {s.badge}
+                  </span>
+                )}
                 <div className="w-11 h-11 rounded-xl bg-[#F5A623]/10 text-[#F5A623] flex items-center justify-center mb-6 group-hover:bg-[#F5A623]/18 transition-colors duration-300 relative z-10">
                   {s.icon}
                 </div>
