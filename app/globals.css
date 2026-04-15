@@ -82,6 +82,27 @@
   transform-origin: center center;
 }
 
+/* ─── Reduced motion ────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-word {
+    opacity: 1;
+    animation: none;
+  }
+  .shimmer-text {
+    animation: none;
+    background-position: 0 center;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* ─── Global ────────────────────────────────────────────────── */
 
 :root { color-scheme: dark; }

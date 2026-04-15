@@ -93,6 +93,7 @@ function MenuPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
       {/* Backdrop — click anywhere outside to close */}
       <div
         onClick={onClose}
+        aria-hidden="true"
         className="fixed inset-0 z-198"
         style={{
           background: "rgba(0,0,0,0.65)",
@@ -106,6 +107,8 @@ function MenuPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
 
       {/* Sliding panel */}
       <div
+        id="menu-panel"
+        aria-hidden={!open}
         className="fixed top-0 right-0 bottom-0 z-199 flex flex-col"
         style={{
           width: "min(400px, 100vw)",
@@ -119,12 +122,13 @@ function MenuPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
         <div style={{ height: `${NAVBAR_H}px` }} className="shrink-0" />
 
         {/* Links */}
-        <nav className="flex-1 flex flex-col justify-center items-center px-8">
+        <nav aria-label="Menú" className="flex-1 flex flex-col justify-center items-center px-8">
           {navLinks.map((link, i) => (
             <a
               key={link.href}
               href={link.href}
               onClick={onClose}
+              tabIndex={open ? undefined : -1}
               className="w-full text-center py-4 text-[2.4rem] sm:text-5xl font-black tracking-tight text-white/80 hover:text-[#F5A623] transition-colors duration-300 cursor-pointer"
               style={{
                 opacity: open ? 1 : 0,
@@ -172,6 +176,7 @@ function Navbar({
 }) {
   return (
     <nav
+      aria-label="Navegación principal"
       className="fixed top-0 left-0 right-0 z-250"
       style={{ height: `${NAVBAR_H}px`, pointerEvents: "none" }}
     >
@@ -206,6 +211,8 @@ function Navbar({
       <button
         onClick={onMenuToggle}
         aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+        aria-expanded={menuOpen}
+        aria-controls="menu-panel"
         className="absolute flex items-center justify-center cursor-pointer"
         style={{
           top: "20px",
@@ -255,17 +262,51 @@ function ContactForm() {
   });
   const [file, setFile] = useState<File | null>(null);
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(
-      `Consulta web${form.servicio ? ` · ${form.servicio}` : ""}`
-    );
-    const body = encodeURIComponent(
-      `Nombre: ${form.nombre}\nEmail: ${form.email}\nServicio: ${form.servicio}${file ? `\nBrief adjunto: ${file.name}` : ""}\n\n${form.mensaje}`
-    );
-    window.location.href = `mailto:info@arismultimedia.com?subject=${subject}&body=${body}`;
-    setSent(true);
+    setLoading(true);
+    setError(null);
+
+    let fileBase64: string | null = null;
+    let fileType: string | null = null;
+    if (file) {
+      const buffer = await file.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+      let binary = "";
+      for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+      fileBase64 = btoa(binary);
+      fileType = file.type || null;
+    }
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: form.nombre,
+          email: form.email,
+          servicio: form.servicio,
+          mensaje: form.mensaje,
+          fileName: file?.name ?? null,
+          fileBase64,
+          fileType,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? "Error al enviar el mensaje.");
+      }
+
+      setSent(true);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Error al enviar el mensaje.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass =
@@ -273,11 +314,22 @@ function ContactForm() {
 
   if (sent) {
     return (
-      <div className="text-center py-10">
-        <p className="text-[#F5A623] font-semibold mb-2">Abriendo tu gestor de correo...</p>
-        <p className="text-white/38 text-sm">
-          Si no se abre, escríbenos a{" "}
-          <a href="mailto:info@arismultimedia.com" className="underline hover:text-white/70 transition-colors cursor-pointer">
+      <div role="alert" className="py-10 flex flex-col items-center text-center gap-5">
+        <div className="w-14 h-14 rounded-full bg-[#F5A623]/10 flex items-center justify-center shrink-0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F5A623" strokeWidth="2" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <div>
+          <p className="text-white font-bold text-lg mb-1.5">Mensaje recibido</p>
+          <p className="text-white/50 text-sm leading-relaxed max-w-xs mx-auto">
+            Te respondemos en un plazo de 24 horas a{" "}
+            <span className="text-white/75">{form.email}</span>.
+          </p>
+        </div>
+        <p className="text-white/25 text-xs max-w-xs">
+          Si no recibes respuesta, revisa la carpeta de spam o escríbenos directamente a{" "}
+          <a href="mailto:info@arismultimedia.com" className="text-white/40 hover:text-white/60 transition-colors duration-200">
             info@arismultimedia.com
           </a>
         </p>
@@ -289,8 +341,9 @@ function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm text-white/45 mb-2 font-medium">Tu nombre</label>
+          <label htmlFor="contacto-nombre" className="block text-sm text-white/45 mb-2 font-medium">Tu nombre</label>
           <input
+            id="contacto-nombre"
             type="text"
             required
             placeholder="Nombre o empresa"
@@ -300,8 +353,9 @@ function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-sm text-white/45 mb-2 font-medium">Tu email</label>
+          <label htmlFor="contacto-email" className="block text-sm text-white/45 mb-2 font-medium">Tu email</label>
           <input
+            id="contacto-email"
             type="email"
             required
             placeholder="tu@email.com"
@@ -313,8 +367,9 @@ function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm text-white/45 mb-2 font-medium">¿En qué podemos ayudarte?</label>
+        <label htmlFor="contacto-servicio" className="block text-sm text-white/45 mb-2 font-medium">¿En qué podemos ayudarte?</label>
         <select
+          id="contacto-servicio"
           value={form.servicio}
           onChange={(e) => setForm({ ...form, servicio: e.target.value })}
           className={`${inputClass} appearance-none cursor-pointer`}
@@ -336,8 +391,9 @@ function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm text-white/45 mb-2 font-medium">Cuéntanos un poco</label>
+        <label htmlFor="contacto-mensaje" className="block text-sm text-white/45 mb-2 font-medium">Cuéntanos un poco</label>
         <textarea
+          id="contacto-mensaje"
           rows={4}
           required
           placeholder="Describe tu proyecto o lo que necesitas. No hace falta tenerlo todo claro."
@@ -349,9 +405,9 @@ function ContactForm() {
 
       {/* File upload */}
       <div>
-        <label className="block text-sm text-white/45 mb-2 font-medium">
+        <p className="block text-sm text-white/45 mb-2 font-medium">
           Brief o documento <span className="text-white/22 font-normal">(opcional · PDF, DOC, ZIP…)</span>
-        </label>
+        </p>
         <label
           className="flex items-center gap-3 w-full bg-[#0a0a0a] border border-dashed border-white/10 hover:border-[#F5A623]/35 rounded-xl px-5 py-4 cursor-pointer transition-colors duration-200 group"
         >
@@ -379,11 +435,16 @@ function ContactForm() {
         )}
       </div>
 
+      {error && (
+        <p role="alert" className="text-red-400 text-sm text-center">{error}</p>
+      )}
+
       <button
         type="submit"
-        className="w-full flex items-center justify-center gap-2.5 bg-[#F5A623] text-black font-bold py-4 rounded-xl hover:bg-[#FFD166] transition-colors duration-200 text-base cursor-pointer"
+        disabled={loading}
+        className="w-full flex items-center justify-center gap-2.5 bg-[#F5A623] text-black font-bold py-4 rounded-xl hover:bg-[#FFD166] transition-colors duration-200 text-base cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Enviar mensaje <IconArrow />
+        {loading ? "Enviando…" : <><span>Enviar mensaje</span> <IconArrow /></>}
       </button>
     </form>
   );
@@ -461,6 +522,7 @@ export default function Home() {
             muted
             loop
             playsInline
+            aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ opacity: 0.62 }}
           >
@@ -626,7 +688,7 @@ export default function Home() {
                     key={p.title}
                     className="bg-[#0d0d0d] border border-white/[0.07] rounded-2xl px-6 py-5"
                   >
-                    <h4 className="text-white font-semibold text-base mb-1.5">{p.title}</h4>
+                    <h3 className="text-white font-semibold text-base mb-1.5">{p.title}</h3>
                     <p className="text-white/62 text-base leading-relaxed">{p.desc}</p>
                   </div>
                 ))}
@@ -669,6 +731,7 @@ export default function Home() {
               muted
               loop
               playsInline
+              aria-hidden="true"
               className="w-full h-64 sm:h-80 object-cover object-center opacity-70"
             >
               <source
@@ -811,7 +874,7 @@ export default function Home() {
             <p className="text-white/18 text-xs">
               © {new Date().getFullYear()} Aris Multimedia. Hecho con cuidado.
             </p>
-            <div className="flex items-center gap-6 text-xs text-white/22">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-white/22">
               {navLinks.map((l) => (
                 <a
                   key={l.href}
@@ -821,6 +884,10 @@ export default function Home() {
                   {l.label}
                 </a>
               ))}
+              <span className="text-white/10 hidden sm:inline">·</span>
+              <a href="/aviso-legal" className="hover:text-white/50 transition-colors duration-200">Aviso legal</a>
+              <a href="/privacidad" className="hover:text-white/50 transition-colors duration-200">Privacidad</a>
+              <a href="/cookies" className="hover:text-white/50 transition-colors duration-200">Cookies</a>
             </div>
           </div>
         </div>
