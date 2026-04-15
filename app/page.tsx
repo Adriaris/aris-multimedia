@@ -847,44 +847,43 @@ export default function Home() {
         />
 
         <div className="max-w-6xl mx-auto">
-          {/* CTA row */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 mb-14">
-            <div>
+          {/* Main row */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-10 mb-14">
+            <div className="flex items-center gap-4">
               <Image
                 src="/logo-blanco.png"
                 alt="Aris Multimedia"
-                width={48}
-                height={48}
-                className="h-12 w-12 object-contain mb-4 opacity-80"
+                width={40}
+                height={40}
+                className="h-10 w-10 object-contain opacity-75 shrink-0"
               />
-              <p className="text-white/55 text-sm leading-relaxed max-w-xs">
-                Desarrollo web hecho con cuidado y atención al detalle.
-              </p>
+              <div>
+                <p className="text-white/85 font-semibold text-sm">Aris Multimedia</p>
+                <p className="text-white/38 text-xs mt-0.5">Desarrollo web hecho con cuidado.</p>
+              </div>
             </div>
-            <a
-              href="#contacto"
-              className="shrink-0 flex items-center gap-2 bg-[#F5A623] text-black font-bold px-6 py-3 rounded-full hover:bg-[#FFD166] transition-colors duration-200 text-sm cursor-pointer"
-            >
-              Empezar un proyecto <IconArrow />
-            </a>
+            <div className="flex flex-col sm:items-end gap-3">
+              <a
+                href="#contacto"
+                className="shrink-0 flex items-center gap-2 bg-[#F5A623] text-black font-bold px-6 py-3 rounded-full hover:bg-[#FFD166] transition-colors duration-200 text-sm cursor-pointer"
+              >
+                Empezar un proyecto <IconArrow />
+              </a>
+              <a
+                href="mailto:info@arismultimedia.com"
+                className="text-xs text-white/28 hover:text-white/55 transition-colors duration-200"
+              >
+                info@arismultimedia.com
+              </a>
+            </div>
           </div>
 
           {/* Bottom row */}
-          <div className="pt-8 border-t border-white/4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="pt-6 border-t border-white/4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-white/18 text-xs">
-              © {new Date().getFullYear()} Aris Multimedia. Hecho con cuidado.
+              © {new Date().getFullYear()} Aris Multimedia
             </p>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-white/22">
-              {navLinks.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  className="hover:text-white/50 transition-colors duration-200 cursor-pointer"
-                >
-                  {l.label}
-                </a>
-              ))}
-              <span className="text-white/10 hidden sm:inline">·</span>
+            <div className="flex items-center gap-5 text-xs text-white/22">
               <a href="/aviso-legal" className="hover:text-white/50 transition-colors duration-200">Aviso legal</a>
               <a href="/privacidad" className="hover:text-white/50 transition-colors duration-200">Privacidad</a>
               <a href="/cookies" className="hover:text-white/50 transition-colors duration-200">Cookies</a>
