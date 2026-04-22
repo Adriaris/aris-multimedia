@@ -98,6 +98,9 @@
     animation: none;
     background-position: 0 center;
   }
+  .marquee-track {
+    animation: none;
+  }
   html {
     scroll-behavior: auto;
   }

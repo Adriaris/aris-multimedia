@@ -11,7 +11,17 @@ export default function ArisOrb() {
     if (!mount) return;
 
     // ── Renderer ───────────────────────────────────────────────
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    // Bail silently if WebGL is unavailable (headless / sandboxed environments)
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if (!gl) return;
+
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch {
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(mount.clientWidth, mount.clientHeight);
     renderer.setClearColor(0x000000, 0);
@@ -129,9 +139,9 @@ export default function ArisOrb() {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", onResize);
       mount.removeEventListener("mousemove", onMouseMove);
-      renderer.dispose();
-      if (mount.contains(renderer.domElement)) {
-        mount.removeChild(renderer.domElement);
+      renderer!.dispose();
+      if (mount.contains(renderer!.domElement)) {
+        mount.removeChild(renderer!.domElement);
       }
     };
   }, []);

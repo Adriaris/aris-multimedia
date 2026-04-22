@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Aris Multimedia — Desarrollo web a medida",
+  title: "Aris Multimedia — IA, Automatizaciones y Desarrollo Web",
   description:
-    "Desarrollo web personalizado, accesibilidad WCAG 2.2 AA, WordPress, PWAs y aplicaciones web. Trato cercano, alta calidad y atención al detalle.",
+    "Consultoría de inteligencia artificial, automatizaciones de procesos, desarrollo web a medida, WordPress y accesibilidad WCAG 2.2 AA. Trato directo, sin intermediarios.",
 };
 
 export default function RootLayout({
